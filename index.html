@@ -15,7 +15,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
@@ -55,7 +55,6 @@
         h1 {
             font-size: 1.8rem;
             margin: 0 0 5px 0;
-            letter-spacing: -0.5px;
         }
 
         .subtitle {
@@ -81,7 +80,6 @@
 
         .data-label {
             color: var(--text-muted);
-            font-size: 1rem;
         }
 
         .data-value {
@@ -92,7 +90,6 @@
         .loading {
             color: var(--text-muted);
             font-style: italic;
-            font-weight: normal;
         }
 
         .contract-box {
@@ -115,12 +112,7 @@
             color: var(--accent-green);
             cursor: pointer;
             font-weight: bold;
-            font-family: inherit;
             padding-left: 10px;
-        }
-
-        .copy-btn:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -164,117 +156,79 @@
     </div>
 
     <script>
-<script>
-    // Solana Token Mint Address
-    const tokenAddress = "EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump";
-    
-    // UPDATED ENDPOINT: Using the stable v1 multi-token route to bypass browser blocks
-    const apiUrl = `https://dexscreener.com{tokenAddress}`;
+        const tokenAddress = "EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump";
+        const apiUrl = `https://dexscreener.com{tokenAddress}`;
 
-    function fetchCryptoData() {
-        fetch(apiUrl, {
-            method: 'GET',
-            headers: { 'Accept': 'application/json' }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP Error ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            const priceEl = document.getElementById("token-price");
-            const changeEl = document.getElementById("price-change");
-            const mcapEl = document.getElementById("market-cap");
+        function fetchCryptoData() {
+            fetch(apiUrl)
+                .then(res => {
+                    if (!res.ok) throw new Error("HTTP " + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    const priceEl = document.getElementById("token-price");
+                    const changeEl = document.getElementById("price-change");
+                    const mcapEl = document.getElementById("market-cap");
 
-            // Look through the data dictionary array safely
-            if (data && Array.isArray(data) && data.length > 0) {
-                const primaryPair = data[0]; // Extract the main liquidity pool
+                    let targetPair = null;
 
-                // 1. Format Live Price
-                const rawPrice = parseFloat(primaryPair.priceUsd);
-                priceEl.innerText = rawPrice ? `$${rawPrice.toFixed(6)}` : "$0.00";
-                priceEl.style.fontSize = "1.1rem"; 
-                priceEl.classList.remove("loading");
+                    // Mobile Fix Strategy: Safely isolate the pool mapping logic across formats
+                    if (Array.isArray(data) && data.length > 0) {
+                        targetPair = data[0]; 
+                    } else if (data && data.pairs && data.pairs.length > 0) {
+                        targetPair = data.pairs[0];
+                    } else if (data && typeof data === 'object' && data.priceUsd) {
+                        targetPair = data;
+                    }
 
-                // 2. Format 5-Minute Change
-                if (primaryPair.priceChange && primaryPair.priceChange.m5 !== undefined) {
-                    const change5m = parseFloat(primaryPair.priceChange.m5);
-                    changeEl.innerText = `${change5m >= 0 ? '+' : ''}${change5m}%`;
-                    changeEl.style.color = change5m >= 0 ? "var(--accent-green)" : "var(--accent-red)";
-                } else {
-                    changeEl.innerText = "0.00%";
-                }
-                changeEl.classList.remove("loading");
+                    if (targetPair) {
+                        // 1. Assign Token Price Metric
+                        const price = parseFloat(targetPair.priceUsd);
+                        priceEl.innerText = price ? `$${price.toFixed(6)}` : "$0.00";
+                        priceEl.classList.remove("loading");
 
-                // 3. Format Market Capitalization
-                const rawMcap = parseInt(primaryPair.marketCap || primaryPair.fdv);
-                mcapEl.innerText = rawMcap ? `$${rawMcap.toLocaleString()}` : "N/A";
-                mcapEl.classList.remove("loading");
+                        // 2. Assign Timeframe Delta Directionality
+                        let change5m = 0;
+                        if (targetPair.priceChange && targetPair.priceChange.m5 !== undefined) {
+                            change5m = parseFloat(targetPair.priceChange.m5);
+                        }
+                        changeEl.innerText = `${change5m >= 0 ? '+' : ''}${change5m}%`;
+                        changeEl.style.color = change5m >= 0 ? "var(--accent-green)" : "var(--accent-red)";
+                        changeEl.classList.remove("loading");
 
-            } else if (data && data.pairs && data.pairs.length > 0) {
-                // Legacy fallback array compatibility filter
-                const primaryPair = data.pairs[0];
-                const rawPrice = parseFloat(primaryPair.priceUsd);
-                priceEl.innerText = rawPrice ? `$${rawPrice.toFixed(6)}` : "$0.00";
-                priceEl.style.fontSize = "1.1rem";
-                priceEl.classList.remove("loading");
+                        // 3. Assign Market Valuation Metrics
+                        const mcap = parseInt(targetPair.marketCap || targetPair.fdv || 0);
+                        mcapEl.innerText = mcap ? `$${mcap.toLocaleString()}` : "N/A";
+                        mcapEl.classList.remove("loading");
+                    } else {
+                        displayErrorState("No Trading Liquidity Pool Found");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    displayErrorState("API Blocked / Offline");
+                });
+        }
 
-                if (primaryPair.priceChange && primaryPair.priceChange.m5 !== undefined) {
-                    const change5m = parseFloat(primaryPair.priceChange.m5);
-                    changeEl.innerText = `${change5m >= 0 ? '+' : ''}${change5m}%`;
-                    changeEl.style.color = change5m >= 0 ? "var(--accent-green)" : "var(--accent-red)";
-                } else {
-                    changeEl.innerText = "0.00%";
-                }
-                changeEl.classList.remove("loading");
+        function displayErrorState(msg) {
+            document.getElementById("token-price").innerText = msg;
+            document.getElementById("token-price").classList.remove("loading");
+            document.getElementById("price-change").innerText = "N/A";
+            document.getElementById("price-change").classList.remove("loading");
+            document.getElementById("market-cap").innerText = "N/A";
+            document.getElementById("market-cap").classList.remove("loading");
+        }
 
-                const rawMcap = parseInt(primaryPair.marketCap || primaryPair.fdv);
-                mcapEl.innerText = rawMcap ? `$${rawMcap.toLocaleString()}` : "N/A";
-                mcapEl.classList.remove("loading");
-            } else {
-                displayErrorState("Meme Token Launching (No Pool)");
-            }
-        })
-        .catch(error => {
-            console.error("DexScreener connection dropped:", error);
-            displayErrorState("Network / Extension Blocked");
+        function copyAddress() {
+            navigator.clipboard.writeText(document.getElementById("ca-text").innerText).then(() => {
+                alert("Copied to clipboard!");
+            });
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            fetchCryptoData();
+            setInterval(fetchCryptoData, 30000);
         });
-    }
-
-    function displayErrorState(message) {
-        const priceEl = document.getElementById("token-price");
-        const changeEl = document.getElementById("price-change");
-        const mcapEl = document.getElementById("market-cap");
-
-        priceEl.innerText = message;
-        priceEl.style.fontSize = "0.9rem"; 
-        priceEl.classList.remove("loading");
-        
-        changeEl.innerText = "N/A";
-        changeEl.style.color = "var(--text-muted)";
-        changeEl.classList.remove("loading");
-        
-        mcapEl.innerText = "N/A";
-        mcapEl.classList.remove("loading");
-    }
-
-    function copyAddress() {
-        const caText = document.getElementById("ca-text").innerText;
-        navigator.clipboard.writeText(caText).then(() => {
-            alert("Contract address copied to clipboard!");
-        }).catch(err => {
-            console.error("Failed to copy text: ", err);
-        });
-    }
-
-    // Initialize execution sequences
-    window.addEventListener("DOMContentLoaded", () => {
-        fetchCryptoData();
-        setInterval(fetchCryptoData, 25000); // 25-second poll cycle
-    });
-</script>
-
     </script>
 </body>
 </html>
