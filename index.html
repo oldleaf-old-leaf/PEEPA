@@ -164,36 +164,40 @@
     </div>
 
     <script>
+<script>
     // Solana Token Mint Address
-const tokenAddress = "EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump";
-// Public DexScreener Endpoint
-const apiUrl = `https://dexscreener.com{tokenAddress}`;
+    const tokenAddress = "EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump";
+    
+    // UPDATED ENDPOINT: Using the stable v1 multi-token route to bypass browser blocks
+    const apiUrl = `https://dexscreener.com{tokenAddress}`;
 
-function fetchCryptoData() {
-    fetch(apiUrl)
+    function fetchCryptoData() {
+        fetch(apiUrl, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
+        })
         .then(response => {
-            // Check if the server actually responded (200 OK)
             if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
+                throw new Error(`HTTP Error ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
-            // Target the DOM elements
             const priceEl = document.getElementById("token-price");
             const changeEl = document.getElementById("price-change");
             const mcapEl = document.getElementById("market-cap");
 
-            // Check if DexScreener returned any pairs
-            if (data && data.pairs && data.pairs.length > 0) {
-                const primaryPair = data.pairs[0]; // Grab the top liquid pair
+            // Look through the data dictionary array safely
+            if (data && Array.isArray(data) && data.length > 0) {
+                const primaryPair = data[0]; // Extract the main liquidity pool
 
-                // 1. Format Price
+                // 1. Format Live Price
                 const rawPrice = parseFloat(primaryPair.priceUsd);
                 priceEl.innerText = rawPrice ? `$${rawPrice.toFixed(6)}` : "$0.00";
+                priceEl.style.fontSize = "1.1rem"; 
                 priceEl.classList.remove("loading");
 
-                // 2. Format 5m Price Change
+                // 2. Format 5-Minute Change
                 if (primaryPair.priceChange && primaryPair.priceChange.m5 !== undefined) {
                     const change5m = parseFloat(primaryPair.priceChange.m5);
                     changeEl.innerText = `${change5m >= 0 ? '+' : ''}${change5m}%`;
@@ -203,55 +207,74 @@ function fetchCryptoData() {
                 }
                 changeEl.classList.remove("loading");
 
-                // 3. Format Market Cap
+                // 3. Format Market Capitalization
                 const rawMcap = parseInt(primaryPair.marketCap || primaryPair.fdv);
                 mcapEl.innerText = rawMcap ? `$${rawMcap.toLocaleString()}` : "N/A";
                 mcapEl.classList.remove("loading");
 
+            } else if (data && data.pairs && data.pairs.length > 0) {
+                // Legacy fallback array compatibility filter
+                const primaryPair = data.pairs[0];
+                const rawPrice = parseFloat(primaryPair.priceUsd);
+                priceEl.innerText = rawPrice ? `$${rawPrice.toFixed(6)}` : "$0.00";
+                priceEl.style.fontSize = "1.1rem";
+                priceEl.classList.remove("loading");
+
+                if (primaryPair.priceChange && primaryPair.priceChange.m5 !== undefined) {
+                    const change5m = parseFloat(primaryPair.priceChange.m5);
+                    changeEl.innerText = `${change5m >= 0 ? '+' : ''}${change5m}%`;
+                    changeEl.style.color = change5m >= 0 ? "var(--accent-green)" : "var(--accent-red)";
+                } else {
+                    changeEl.innerText = "0.00%";
+                }
+                changeEl.classList.remove("loading");
+
+                const rawMcap = parseInt(primaryPair.marketCap || primaryPair.fdv);
+                mcapEl.innerText = rawMcap ? `$${rawMcap.toLocaleString()}` : "N/A";
+                mcapEl.classList.remove("loading");
             } else {
-                // FALLBACK: Server responded, but token doesn't have an open trading pair yet
-                displayErrorState("Meme Token Launching (No Pool Yet)");
+                displayErrorState("Meme Token Launching (No Pool)");
             }
         })
         .catch(error => {
-            console.error("DexScreener API Fetch Failure:", error);
-            // FALLBACK: The network request failed completely (Adblocker, CORS, or local internet issue)
-            displayErrorState("API Blocked by Browser/Network");
+            console.error("DexScreener connection dropped:", error);
+            displayErrorState("Network / Extension Blocked");
         });
-}
+    }
 
-function displayErrorState(message) {
-    const priceEl = document.getElementById("token-price");
-    const changeEl = document.getElementById("price-change");
-    const mcapEl = document.getElementById("market-cap");
+    function displayErrorState(message) {
+        const priceEl = document.getElementById("token-price");
+        const changeEl = document.getElementById("price-change");
+        const mcapEl = document.getElementById("market-cap");
 
-    priceEl.innerText = message;
-    priceEl.style.fontSize = "0.9rem"; // Shrink slightly to fit error message text cleanly
-    priceEl.classList.remove("loading");
-    
-    changeEl.innerText = "N/A";
-    changeEl.classList.remove("loading");
-    
-    mcapEl.innerText = "N/A";
-    mcapEl.classList.remove("loading");
-}
+        priceEl.innerText = message;
+        priceEl.style.fontSize = "0.9rem"; 
+        priceEl.classList.remove("loading");
+        
+        changeEl.innerText = "N/A";
+        changeEl.style.color = "var(--text-muted)";
+        changeEl.classList.remove("loading");
+        
+        mcapEl.innerText = "N/A";
+        mcapEl.classList.remove("loading");
+    }
 
-function copyAddress() {
-    const caText = document.getElementById("ca-text").innerText;
-    navigator.clipboard.writeText(caText).then(() => {
-        alert("Contract address copied to clipboard!");
-    }).catch(err => {
-        console.error("Failed to copy text: ", err);
+    function copyAddress() {
+        const caText = document.getElementById("ca-text").innerText;
+        navigator.clipboard.writeText(caText).then(() => {
+            alert("Contract address copied to clipboard!");
+        }).catch(err => {
+            console.error("Failed to copy text: ", err);
+        });
+    }
+
+    // Initialize execution sequences
+    window.addEventListener("DOMContentLoaded", () => {
+        fetchCryptoData();
+        setInterval(fetchCryptoData, 25000); // 25-second poll cycle
     });
-}
+</script>
 
-// Run data fetching automatically when the page finishes loading
-window.addEventListener("DOMContentLoaded", () => {
-    fetchCryptoData();
-    setInterval(fetchCryptoData, 30000); // Auto-refresh data every 30 seconds
-});
-    
-    
     </script>
 </body>
 </html>
