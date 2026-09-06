@@ -15,7 +15,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, "Microsoft YaHei", sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
@@ -36,9 +36,33 @@
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
+            position: relative;
         }
 
-        /* Token Image Style */
+        .lang-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .lang-btn.active {
+            background-color: var(--accent-green);
+            color: #0b0e11;
+            border-color: var(--accent-green);
+        }
+
         .token-logo-outer {
             width: 110px;
             height: 110px;
@@ -84,7 +108,7 @@
             color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: left;
             background: rgba(255, 255, 255, 0.02);
             padding: 15px;
@@ -92,12 +116,11 @@
             border: 1px solid rgba(255, 255, 255, 0.02);
         }
 
-        /* Tokenomics Matrix Grid */
         .tokenomics-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .tokenomics-item {
@@ -122,7 +145,6 @@
             color: var(--text-main);
         }
 
-        /* Links Setup */
         .action-btn {
             display: block;
             background-color: var(--accent-green);
@@ -182,306 +204,116 @@
 <body>
 
     <div class="dashboard">
-        <!-- Token Image Section -->
+        <div class="lang-bar">
+            <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" id="btn-zh" onclick="setLanguage('zh')">中文</button>
+        </div>
+
         <div class="token-logo-outer">
-            <!-- Using an Emoji base for stability, you can easily change '🧬' to an <img> tag later -->
             <div class="token-logo">🐸</div>
         </div>
 
         <h1>PEEPA</h1>
-        <div class="badge">SOLANA NETWORK</div>
+        <div class="badge" id="network-badge">SOLANA NETWORK</div>
 
-        <div class="about-text">
-            <strong>The Wife of Pepe the Frog</strong> has arrived to take her rightful place on the blockchain! Designed for community momentum, safety, and pure meme culture energy. No hidden fees, zero hassles.
+        <div class="about-text" id="about-content">
+            <strong>PEEPA</strong> is the legendary character "Wife of Pepe the Frog", originally drawn by independent artist @MrGarrisonFjord on Reddit in 2018. Rediscovered and launched by the Web3 community in 2026, the project features automated creator structures that route protocol provisions directly to the original author, redefining fair-launch ethics.
         </div>
 
-        <!-- Static Metric Displays -->
         <div class="tokenomics-grid">
             <div class="tokenomics-item">
-                <div class="stat-label">Tax Rate</div>
+                <div class="stat-label" id="lbl-tax">Tax Rate</div>
                 <div class="stat-value" style="color: var(--accent-green);">0% / 0%</div>
             </div>
             <div class="tokenomics-item">
-                <div class="stat-label">Liquidity</div>
-                <div class="stat-value">100% Burnt</div>
+                <div class="stat-label" id="lbl-launch">Launch Mechanism</div>
+                <div class="stat-value" id="val-launch">100% Fair</div>
             </div>
             <div class="tokenomics-item">
-                <div class="stat-label">Contract Status</div>
-                <div class="stat-value">Renounced</div>
+                <div class="stat-label" id="lbl-locked">Token Lock</div>
+                <div class="stat-value" id="val-locked">11.37% (Until 2027)</div>
             </div>
             <div class="tokenomics-item">
-                <div class="stat-label">Total Supply</div>
-                <div class="stat-value">420.69T</div>
+                <div class="stat-label" id="lbl-royalty">Ecosystem Model</div>
+                <div class="stat-value" id="val-royalty" style="font-size:0.85rem;">Artist Allocation</div>
             </div>
         </div>
 
-        <!-- Live Track Actions Link Box -->
-        <a href="https://dexscreener.com" target="_blank" class="action-btn">
+        <div class="about-text" id="ecosystem-content" style="margin-top: 5px; margin-bottom: 25px;">
+            <strong style="color: var(--accent-green);">🪐 Community Culture Space:</strong><br>
+            • ☕ <strong>Starfrogs:</strong> Virtual hubs built for morning interactions.<br>
+            • 📚 <strong>PEEPA Book Club:</strong> Sub-groups reviewing analytics & Web3 books.<br>
+            • 🚀 <strong>Space Astronauts:</strong> Explanatory lore matching modern SpaceX culture.
+        </div>
+
+        <a href="https://dexscreener.com" target="_blank" class="action-btn" id="chart-btn-text">
             📊 View Live Market Charts
         </a>
 
-        <!-- WeChat Optimized Copy Box -->
         <div class="contract-section">
-            <div class="contract-label">Token Mint Address:</div>
+            <div class="contract-label" id="lbl-ca">Token Mint Address (CA):</div>
             <div class="contract-box">
                 <input type="text" id="ca-input" value="EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump" readonly>
-                <button class="copy-btn" onclick="copyTokenAddress()">Copy</button>
+                <button class="copy-btn" id="copy-btn-text" onclick="copyTokenAddress()">Copy</button>
             </div>
         </div>
     </div>
-
     <script>
+        // Bilingual translation dictionary and core DOM manipulation functions for the dashboard.
+        const translations = {
+            en: {
+                network: "SOLANA NETWORK",
+                about: "<strong>PEEPA</strong> is the legendary character \"Wife of Pepe the Frog\", originally drawn by independent artist @MrGarrisonFjord on Reddit in 2018.",
+                lblTax: "Tax Rate",
+                lblLaunch: "Launch Mechanism",
+                valLaunch: "100% Fair",
+                lblLocked: "Token Lock",
+                valLocked: "11.37% (Until 2027)",
+                lblRoyalty: "Ecosystem Model",
+                valRoyalty: "Artist Allocation",
+                btnChart: "📊 View Live Market Charts",
+                lblCa: "Token Mint Address (CA):",
+                btnCopy: "Copy",
+                msgSuccess: "Contract address copied to clipboard!",
+                msgFail: "Please hold down on the code box to copy text manually."
+            },
+            zh: {
+                network: "SOLANA 网络",
+                about: "<strong>PEEPA</strong> 是源自独立艺术家 @MrGarrisonFjord 于 2018 年在 Reddit 创作的传奇梗角色——《青蛙佩佩的妻子》。",
+                lblTax: "交易税率",
+                lblLaunch: "发行机制",
+                valLaunch: "100% 公平发射",
+                lblLocked: "代币锁仓",
+                valLocked: "11.37% (至2027)",
+                lblRoyalty: "生态赋能",
+                valRoyalty: "艺术家自动化分润",
+                btnChart: "📊 查看 K 线行情走势",
+                lblCa: "智能合约地址 (CA):",
+                btnCopy: "复制",
+                msgSuccess: "合约地址已成功复制到剪贴板！",
+                msgFail: "复制失败，请长按地址框手动复制。"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+        }
+
         function copyTokenAddress() {
             const el = document.getElementById("ca-input");
             el.focus();
             el.select();
-            el.setSelectionRange(0, 99999); // Safe selector override for iOS mobile clients
-            
             try {
-                const successful = document.execCommand("copy");
-                if (successful) {
-                    alert("Contract address copied!");
-                } else {
-                    alert("Please hold down on the code box to copy text manually.");
-                }
+                document.execCommand("copy");
+                alert(translations[currentLang].msgSuccess);
             } catch (err) {
-                alert("Please hold down on the code box to copy text manually.");
+                alert(translations[currentLang].msgFail);
             }
         }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Token Info Hub | PEEPA</title>
-    <style>
-        :root {
-            --bg-color: #0b0e11;
-            --card-bg: #151a21;
-            --accent-green: #00ffa3;
-            --accent-red: #ff3b30;
-            --text-main: #ffffff;
-            --text-muted: #848e9c;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-
-        .dashboard {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 30px;
-            width: 100%;
-            max-width: 480px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .notice-banner {
-            background-color: rgba(255, 255, 255, 0.03);
-            border-left: 4px solid var(--accent-green);
-            padding: 12px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 25px;
-            line-height: 1.4;
-        }
-
-        .notice-banner strong {
-            color: var(--text-main);
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            margin: 0 0 5px 0;
-        }
-
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 30px;
-        }
-
-        .analytics-section h3, .contract-section h3 {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            color: var(--text-muted);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 8px;
-        }
-
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .data-label {
-            color: var(--text-muted);
-        }
-
-        .data-value {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .loading {
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        .contract-box {
-            background-color: var(--bg-color);
-            padding: 12px;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 0.85rem;
-            word-break: break-all;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 10px;
-        }
-
-        .copy-btn {
-            background: none;
-            border: none;
-            color: var(--accent-green);
-            cursor: pointer;
-            font-weight: bold;
-            padding-left: 10px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="dashboard">
-        <div class="notice-banner">
-            💡 <strong>Tip:</strong> If links or wallet actions do not load, tap the top-right <strong>"..."</strong> menu and select <strong>"Open in Browser"</strong>.
-        </div>
-
-        <h1>🧬 PEEPA</h1>
-        <div class="subtitle">Official informational dashboard tracking real-time market data on the Solana Network.</div>
-
-        <div class="analytics-section">
-            <h3>Live Analytics</h3>
-            
-            <div class="data-row">
-                <div class="data-label">Price (USD)</div>
-                <div class="data-value loading" id="token-price">Loading...</div>
-            </div>
-
-            <div class="data-row">
-                <div class="data-label">5m Change</div>
-                <div class="data-value loading" id="price-change">Loading...</div>
-            </div>
-
-            <div class="data-row">
-                <div class="data-label">Market Cap</div>
-                <div class="data-value loading" id="market-cap">Loading...</div>
-            </div>
-        </div>
-
-        <div class="contract-section" style="margin-top: 30px;">
-            <h3>Smart Contract</h3>
-            <div class="data-label">Verified Token Address (Solana):</div>
-            <div class="contract-box">
-                <span id="ca-text">EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump</span>
-                <button class="copy-btn" onclick="copyAddress()">Copy</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const tokenAddress = "EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump";
-        const apiUrl = `https://dexscreener.com{tokenAddress}`;
-
-        function fetchCryptoData() {
-            fetch(apiUrl)
-                .then(res => {
-                    if (!res.ok) throw new Error("HTTP " + res.status);
-                    return res.json();
-                })
-                .then(data => {
-                    const priceEl = document.getElementById("token-price");
-                    const changeEl = document.getElementById("price-change");
-                    const mcapEl = document.getElementById("market-cap");
-
-                    let targetPair = null;
-
-                    // Mobile Fix Strategy: Safely isolate the pool mapping logic across formats
-                    if (Array.isArray(data) && data.length > 0) {
-                        targetPair = data[0]; 
-                    } else if (data && data.pairs && data.pairs.length > 0) {
-                        targetPair = data.pairs[0];
-                    } else if (data && typeof data === 'object' && data.priceUsd) {
-                        targetPair = data;
-                    }
-
-                    if (targetPair) {
-                        // 1. Assign Token Price Metric
-                        const price = parseFloat(targetPair.priceUsd);
-                        priceEl.innerText = price ? `$${price.toFixed(6)}` : "$0.00";
-                        priceEl.classList.remove("loading");
-
-                        // 2. Assign Timeframe Delta Directionality
-                        let change5m = 0;
-                        if (targetPair.priceChange && targetPair.priceChange.m5 !== undefined) {
-                            change5m = parseFloat(targetPair.priceChange.m5);
-                        }
-                        changeEl.innerText = `${change5m >= 0 ? '+' : ''}${change5m}%`;
-                        changeEl.style.color = change5m >= 0 ? "var(--accent-green)" : "var(--accent-red)";
-                        changeEl.classList.remove("loading");
-
-                        // 3. Assign Market Valuation Metrics
-                        const mcap = parseInt(targetPair.marketCap || targetPair.fdv || 0);
-                        mcapEl.innerText = mcap ? `$${mcap.toLocaleString()}` : "N/A";
-                        mcapEl.classList.remove("loading");
-                    } else {
-                        displayErrorState("No Trading Liquidity Pool Found");
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    displayErrorState("API Blocked / Offline");
-                });
-        }
-
-        function displayErrorState(msg) {
-            document.getElementById("token-price").innerText = msg;
-            document.getElementById("token-price").classList.remove("loading");
-            document.getElementById("price-change").innerText = "N/A";
-            document.getElementById("price-change").classList.remove("loading");
-            document.getElementById("market-cap").innerText = "N/A";
-            document.getElementById("market-cap").classList.remove("loading");
-        }
-
-        function copyAddress() {
-            navigator.clipboard.writeText(document.getElementById("ca-text").innerText).then(() => {
-                alert("Copied to clipboard!");
-            });
-        }
-
-        window.addEventListener("DOMContentLoaded", () => {
-            fetchCryptoData();
-            setInterval(fetchCryptoData, 30000);
-        });
     </script>
 </body>
 </html>
