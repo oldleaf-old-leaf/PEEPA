@@ -164,81 +164,94 @@
     </div>
 
     <script>
-        // Solana Token Mint Address
-        const tokenAddress = "EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump";
-        // Public DexScreener Endpoint
-        const apiUrl = `https://dexscreener.com{tokenAddress}`;
+    // Solana Token Mint Address
+const tokenAddress = "EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump";
+// Public DexScreener Endpoint
+const apiUrl = `https://dexscreener.com{tokenAddress}`;
 
-        function fetchCryptoData() {
-            fetch(apiUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Check if DexScreener returned any valid market pairs
-                    if (data.pairs && data.pairs.length > 0) {
-                        // Grab the primary liquid trading pair (usually Raydium or Jupiter)
-                        const primaryPair = data.pairs[0];
+function fetchCryptoData() {
+    fetch(apiUrl)
+        .then(response => {
+            // Check if the server actually responded (200 OK)
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Target the DOM elements
+            const priceEl = document.getElementById("token-price");
+            const changeEl = document.getElementById("price-change");
+            const mcapEl = document.getElementById("market-cap");
 
-                        // Target the DOM elements
-                        const priceEl = document.getElementById("token-price");
-                        const changeEl = document.getElementById("price-change");
-                        const mcapEl = document.getElementById("market-cap");
+            // Check if DexScreener returned any pairs
+            if (data && data.pairs && data.pairs.length > 0) {
+                const primaryPair = data.pairs[0]; // Grab the top liquid pair
 
-                        // 1. Parse and format Price (using 6 decimals for low-value meme tokens)
-                        const rawPrice = parseFloat(primaryPair.priceUsd);
-                        priceEl.innerText = rawPrice ? `$${rawPrice.toFixed(6)}` : "$0.00";
-                        priceEl.classList.remove("loading");
+                // 1. Format Price
+                const rawPrice = parseFloat(primaryPair.priceUsd);
+                priceEl.innerText = rawPrice ? `$${rawPrice.toFixed(6)}` : "$0.00";
+                priceEl.classList.remove("loading");
 
-                        // 2. Parse and format 5m Price Change Percentages
-                        if (primaryPair.priceChange && primaryPair.priceChange.m5 !== undefined) {
-                            const change5m = parseFloat(primaryPair.priceChange.m5);
-                            changeEl.innerText = `${change5m >= 0 ? '+' : ''}${change5m}%`;
-                            changeEl.style.color = change5m >= 0 ? "var(--accent-green)" : "var(--accent-red)";
-                        } else {
-                            changeEl.innerText = "0.00%";
-                        }
-                        changeEl.classList.remove("loading");
+                // 2. Format 5m Price Change
+                if (primaryPair.priceChange && primaryPair.priceChange.m5 !== undefined) {
+                    const change5m = parseFloat(primaryPair.priceChange.m5);
+                    changeEl.innerText = `${change5m >= 0 ? '+' : ''}${change5m}%`;
+                    changeEl.style.color = change5m >= 0 ? "var(--accent-green)" : "var(--accent-red)";
+                } else {
+                    changeEl.innerText = "0.00%";
+                }
+                changeEl.classList.remove("loading");
 
-                        // 3. Parse and format Market Cap (Using localized commas)
-                        const rawMcap = parseInt(primaryPair.marketCap || primaryPair.fdv);
-                        mcapEl.innerText = rawMcap ? `$${rawMcap.toLocaleString()}` : "N/A";
-                        mcapEl.classList.remove("loading");
+                // 3. Format Market Cap
+                const rawMcap = parseInt(primaryPair.marketCap || primaryPair.fdv);
+                mcapEl.innerText = rawMcap ? `$${rawMcap.toLocaleString()}` : "N/A";
+                mcapEl.classList.remove("loading");
 
-                    } else {
-                        displayErrorState("No Active Pools Found");
-                    }
-                })
-                .catch(error => {
-                    console.error("DexScreener API Fetch Failure:", error);
-                    displayErrorState("API Connection Error");
-                });
-        }
-
-        function displayErrorState(message) {
-            document.getElementById("token-price").innerText = message;
-            document.getElementById("price-change").innerText = "N/A";
-            document.getElementById("market-cap").innerText = "N/A";
-        }
-
-        function copyAddress() {
-            const caText = document.getElementById("ca-text").innerText;
-            navigator.clipboard.writeText(caText).then(() => {
-                alert("Contract address copied to clipboard!");
-            }).catch(err => {
-                console.error("Failed to copy text: ", err);
-            });
-        }
-
-        // Run data fetching automatically when the page finishes loading
-        window.addEventListener("DOMContentLoaded", () => {
-            fetchCryptoData();
-            // Automatically refresh data every 30 seconds to simulate a live ticker
-            setInterval(fetchCryptoData, 30000);
+            } else {
+                // FALLBACK: Server responded, but token doesn't have an open trading pair yet
+                displayErrorState("Meme Token Launching (No Pool Yet)");
+            }
+        })
+        .catch(error => {
+            console.error("DexScreener API Fetch Failure:", error);
+            // FALLBACK: The network request failed completely (Adblocker, CORS, or local internet issue)
+            displayErrorState("API Blocked by Browser/Network");
         });
+}
+
+function displayErrorState(message) {
+    const priceEl = document.getElementById("token-price");
+    const changeEl = document.getElementById("price-change");
+    const mcapEl = document.getElementById("market-cap");
+
+    priceEl.innerText = message;
+    priceEl.style.fontSize = "0.9rem"; // Shrink slightly to fit error message text cleanly
+    priceEl.classList.remove("loading");
+    
+    changeEl.innerText = "N/A";
+    changeEl.classList.remove("loading");
+    
+    mcapEl.innerText = "N/A";
+    mcapEl.classList.remove("loading");
+}
+
+function copyAddress() {
+    const caText = document.getElementById("ca-text").innerText;
+    navigator.clipboard.writeText(caText).then(() => {
+        alert("Contract address copied to clipboard!");
+    }).catch(err => {
+        console.error("Failed to copy text: ", err);
+    });
+}
+
+// Run data fetching automatically when the page finishes loading
+window.addEventListener("DOMContentLoaded", () => {
+    fetchCryptoData();
+    setInterval(fetchCryptoData, 30000); // Auto-refresh data every 30 seconds
+});
+    
+    
     </script>
 </body>
 </html>
