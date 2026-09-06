@@ -3,6 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEEPA | Official Token Hub</title>
+    <style>
+        :root {
+            --bg-color: #0b0e11;
+            --card-bg: #151a21;
+            --accent-green: #00ffa3;
+            --text-main: #ffffff;
+            --text-muted: #848e9c;
+            --btn-hover: #00e692;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .dashboard {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        /* Token Image Style */
+        .token-logo-outer {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-green), #00bcff);
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 255, 163, 0.3);
+        }
+
+        .token-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #1a222d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.2rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .badge {
+            background-color: rgba(0, 255, 163, 0.1);
+            color: var(--accent-green);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 255, 163, 0.15);
+        }
+
+        .about-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        /* Tokenomics Matrix Grid */
+        .tokenomics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .tokenomics-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        /* Links Setup */
+        .action-btn {
+            display: block;
+            background-color: var(--accent-green);
+            color: #0b0e11;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 1rem;
+            transition: background 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background-color: var(--btn-hover);
+        }
+
+        .contract-box {
+            display: flex;
+            background-color: var(--bg-color);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 4px;
+            margin-top: 5px;
+        }
+
+        .contract-box input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-family: monospace;
+            font-size: 0.8rem;
+            padding: 10px;
+            outline: none;
+        }
+
+        .copy-btn {
+            background-color: rgba(0, 255, 163, 0.1);
+            border: 1px solid rgba(0, 255, 163, 0.2);
+            color: var(--accent-green);
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        .contract-label {
+            text-align: left;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        <!-- Token Image Section -->
+        <div class="token-logo-outer">
+            <!-- Using an Emoji base for stability, you can easily change '🧬' to an <img> tag later -->
+            <div class="token-logo">🐸</div>
+        </div>
+
+        <h1>PEEPA</h1>
+        <div class="badge">SOLANA NETWORK</div>
+
+        <div class="about-text">
+            <strong>The Wife of Pepe the Frog</strong> has arrived to take her rightful place on the blockchain! Designed for community momentum, safety, and pure meme culture energy. No hidden fees, zero hassles.
+        </div>
+
+        <!-- Static Metric Displays -->
+        <div class="tokenomics-grid">
+            <div class="tokenomics-item">
+                <div class="stat-label">Tax Rate</div>
+                <div class="stat-value" style="color: var(--accent-green);">0% / 0%</div>
+            </div>
+            <div class="tokenomics-item">
+                <div class="stat-label">Liquidity</div>
+                <div class="stat-value">100% Burnt</div>
+            </div>
+            <div class="tokenomics-item">
+                <div class="stat-label">Contract Status</div>
+                <div class="stat-value">Renounced</div>
+            </div>
+            <div class="tokenomics-item">
+                <div class="stat-label">Total Supply</div>
+                <div class="stat-value">420.69T</div>
+            </div>
+        </div>
+
+        <!-- Live Track Actions Link Box -->
+        <a href="https://dexscreener.com" target="_blank" class="action-btn">
+            📊 View Live Market Charts
+        </a>
+
+        <!-- WeChat Optimized Copy Box -->
+        <div class="contract-section">
+            <div class="contract-label">Token Mint Address:</div>
+            <div class="contract-box">
+                <input type="text" id="ca-input" value="EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump" readonly>
+                <button class="copy-btn" onclick="copyTokenAddress()">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyTokenAddress() {
+            const el = document.getElementById("ca-input");
+            el.focus();
+            el.select();
+            el.setSelectionRange(0, 99999); // Safe selector override for iOS mobile clients
+            
+            try {
+                const successful = document.execCommand("copy");
+                if (successful) {
+                    alert("Contract address copied!");
+                } else {
+                    alert("Please hold down on the code box to copy text manually.");
+                }
+            } catch (err) {
+                alert("Please hold down on the code box to copy text manually.");
+            }
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Token Info Hub | PEEPA</title>
     <style>
         :root {
