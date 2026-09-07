@@ -29,7 +29,7 @@ Same ticker exists on other chains. **Only this address.**
 - Short project note (public meme lore; creator-fee claims should be checked on-chain)  
 - Contract copy button  
 - Links that work better outside WeChat:
-  - [GeckoTerminal (Peepa/SOL)](https://www.geckoterminal.com/solana/tokens/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump)
+  - [GeckoTerminal (Peepa token)](https://www.geckoterminal.com/solana/tokens/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump)
   - [Solscan](https://solscan.io/token/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump)
   - [Pump.fun](https://pump.fun/coin/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump)
 
