@@ -1,4 +1,4 @@
-# PEEPA — WeChat briefing page
+# WeChat briefing page, educational / NFA  
 
 Simple bilingual landing page for **WeChat users** who want a short, copy-friendly briefing on the Solana token **$PEEPA**.
 
@@ -30,6 +30,14 @@ Same ticker exists on other chains. **Only this address.**
   - [GeckoTerminal (Peepa/SOL pool)](https://www.geckoterminal.com/solana/pools/BoB3Dvi5eLGFr86BexBPNY2ZXwMNjWhx3FVCep3X2Vj6)
   - [Solscan](https://solscan.io/token/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump)
   - [Pump.fun](https://pump.fun/coin/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump)
+
+## Community
+- X: https://x.com/i/communities/2021710777552674973
+- Telegram: https://t.me/ThePeepacommunity
+
+WeChat users in mainland China: copy these into an external browser or VPN. Do not treat random “admin” WeChat IDs as official.
+
+
 
 ## For WeChat users
 
