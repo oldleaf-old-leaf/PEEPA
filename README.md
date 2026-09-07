@@ -43,7 +43,7 @@ Same ticker exists on other chains. **Only this address.**
 | File | Role |
 | --- | --- |
 | `index.html` | Bilingual briefing page |
-| `circlepng.png` | Round token image used instead of an emoji |
+| `circlepng.png` | Round token image |
 | `README.md` | This note |
 
 ## Run locally
