@@ -1,4 +1,6 @@
-# WeChat briefing page, educational / NFA  
+# PEEPA — WeChat briefing (educational / NFA)
+
+Live page: https://oldleaf-old-leaf.github.io/PEEPA/
 
 Simple bilingual landing page for **WeChat users** who want a short, copy-friendly briefing on the Solana token **$PEEPA**.
 
@@ -58,7 +60,7 @@ WeChat users in mainland China: copy these into an external browser or VPN. Do n
 
 Open `index.html` in a browser. No build step.
 
-## GitHub Pages (optional)
+## GitHub Pages
 
 Settings → Pages → Deploy from `main` / root.  
 Live URL will look like:
