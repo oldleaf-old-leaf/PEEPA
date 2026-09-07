@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PEEPA | Token Briefing</title>
+    <title>PEEPA | WeChat Briefing</title>
     <style>
         :root {
             --bg-color: #0b0e11;
@@ -14,8 +14,10 @@
             --btn-hover: #00e692;
         }
 
+        * { box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, "Microsoft YaHei", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
@@ -24,7 +26,6 @@
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
-            box-sizing: border-box;
         }
 
         .dashboard {
@@ -84,7 +85,11 @@
             background-color: #1a222d;
         }
 
-        h1 { font-size: 2.2rem; margin: 0 0 8px 0; letter-spacing: -0.5px; }
+        h1 {
+            font-size: 2.2rem;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.5px;
+        }
 
         .badge {
             background-color: rgba(0, 255, 163, 0.1);
@@ -98,7 +103,8 @@
             border: 1px solid rgba(0, 255, 163, 0.15);
         }
 
-        .about-text, .risk-text {
+        .about-text,
+        .risk-text {
             color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.65;
@@ -141,7 +147,12 @@
             color: var(--text-main);
         }
 
-        .link-stack { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .link-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
 
         .action-btn {
             display: block;
@@ -160,7 +171,19 @@
             border: 1px solid rgba(0, 255, 163, 0.25);
         }
 
-        .action-btn:hover { background-color: var(--btn-hover); color: #0b0e11; }
+        .action-btn:hover {
+            background-color: var(--btn-hover);
+            color: #0b0e11;
+        }
+
+        .contract-section { margin-top: 4px; }
+
+        .contract-label {
+            text-align: left;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
 
         .contract-box {
             display: flex;
@@ -170,18 +193,25 @@
             overflow: hidden;
             padding: 4px;
             margin-top: 5px;
+            align-items: stretch;
         }
 
-        .contract-box input {
+        .contract-box input,
+        .contract-box textarea {
             flex: 1;
             background: none;
             border: none;
             color: var(--text-main);
-            font-family: ui-monospace, monospace;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
             font-size: 0.72rem;
             padding: 10px;
             outline: none;
             min-width: 0;
+        }
+
+        .contract-box textarea {
+            resize: none;
+            line-height: 1.45;
         }
 
         .copy-btn {
@@ -195,25 +225,19 @@
             font-size: 0.85rem;
             white-space: nowrap;
         }
-
-        .contract-label {
-            text-align: left;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
     </style>
 </head>
 <body>
     <div class="dashboard">
         <div class="lang-bar">
-            <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">EN</button>
-            <button class="lang-btn" id="btn-zh" onclick="setLanguage('zh')">中文</button>
+            <button type="button" class="lang-btn active" id="btn-en" onclick="setLanguage('en')">EN</button>
+            <button type="button" class="lang-btn" id="btn-zh" onclick="setLanguage('zh')">中文</button>
         </div>
-        
+
         <div class="token-logo-outer">
             <img class="token-logo" src="circlepng.png" alt="PEEPA">
         </div>
-        
+
         <h1>PEEPA</h1>
         <div class="badge" id="network-badge">SOLANA NETWORK</div>
         <div class="about-text" id="about-content"></div>
@@ -243,13 +267,23 @@
             <a class="action-btn" id="btn-gecko" href="https://www.geckoterminal.com/solana/pools/BoB3Dvi5eLGFr86BexBPNY2ZXwMNjWhx3FVCep3X2Vj6" target="_blank" rel="noopener">GeckoTerminal</a>
             <a class="action-btn secondary" id="btn-solscan" href="https://solscan.io/token/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump" target="_blank" rel="noopener">Solscan</a>
             <a class="action-btn secondary" id="btn-pump" href="https://pump.fun/coin/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump" target="_blank" rel="noopener">Pump.fun</a>
+            <a class="action-btn secondary" id="btn-x" href="https://x.com/i/communities/2021710777552674973" target="_blank" rel="noopener">X Community</a>
+            <a class="action-btn secondary" id="btn-tg" href="https://t.me/ThePeepacommunity" target="_blank" rel="noopener">Telegram</a>
         </div>
 
         <div class="contract-section">
             <div class="contract-label" id="lbl-ca"></div>
             <div class="contract-box">
                 <input type="text" id="ca-input" value="EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump" readonly>
-                <button class="copy-btn" id="copy-btn-text" onclick="copyTokenAddress()">Copy</button>
+                <button type="button" class="copy-btn" id="copy-btn-text" onclick="copyTokenAddress()">Copy</button>
+            </div>
+        </div>
+
+        <div class="contract-section" style="margin-top: 18px;">
+            <div class="contract-label" id="lbl-links"></div>
+            <div class="contract-box">
+                <textarea id="links-input" readonly rows="7"></textarea>
+                <button type="button" class="copy-btn" id="copy-links-btn" onclick="copyCommunityLinks()">Copy</button>
             </div>
         </div>
 
@@ -257,6 +291,15 @@
     </div>
 
     <script>
+        const CA = "EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump";
+        const LINKS = {
+            gecko: "https://www.geckoterminal.com/solana/pools/BoB3Dvi5eLGFr86BexBPNY2ZXwMNjWhx3FVCep3X2Vj6",
+            solscan: "https://solscan.io/token/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump",
+            pump: "https://pump.fun/coin/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump",
+            x: "https://x.com/i/communities/2021710777552674973",
+            tg: "https://t.me/ThePeepacommunity"
+        };
+
         const translations = {
             en: {
                 network: "SOLANA NETWORK",
@@ -271,11 +314,18 @@
                 btnGecko: "View chart on GeckoTerminal",
                 btnSolscan: "Open Solscan",
                 btnPump: "Open Pump.fun",
+                btnX: "X community (may need VPN in China)",
+                btnTg: "Telegram: ThePeepacommunity",
                 lblCa: "Token mint address (CA) — verify this exact address:",
                 btnCopy: "Copy",
-                risk: "<strong>Risks</strong><br>1. Many clone tickers exist (including an Ethereum $PEEPA). Use only this contract.<br>2. Small-cap meme coins can go to zero. This is not financial advice.<br>3. DYOR.",
+                lblLinks: "Copy these links (paste into Safari / Chrome if WeChat blocks them):",
+                linksText: "CA: " + CA + "\nGeckoTerminal: " + LINKS.gecko + "\nSolscan: " + LINKS.solscan + "\nPump.fun: " + LINKS.pump + "\nX: " + LINKS.x + "\nTelegram: " + LINKS.tg,
+                btnCopyLinks: "Copy",
+                risk: "<strong>Risks</strong><br>1. Many clone tickers exist (including an Ethereum $PEEPA). Use only this contract.<br>2. Small-cap meme coins can go to zero. This is not financial advice.<br>3. DYOR. Random WeChat “admins” are not official.",
                 msgSuccess: "Contract address copied.",
-                msgFail: "Copy failed. Long-press the address to copy."
+                msgFail: "Copy failed. Long-press the address to copy.",
+                msgLinksOk: "Links copied.",
+                msgLinksFail: "Copy failed. Long-press the box to copy."
             },
             zh: {
                 network: "SOLANA 网络",
@@ -290,15 +340,37 @@
                 btnGecko: "在 GeckoTerminal 查看行情",
                 btnSolscan: "打开 Solscan",
                 btnPump: "打开 Pump.fun",
+                btnX: "X 社区（国内需 VPN）",
+                btnTg: "Telegram 群 ThePeepacommunity",
                 lblCa: "智能合约地址（请自行核对，谨防假盘）：",
                 btnCopy: "复制",
-                risk: "<strong>风险提示</strong><br>1. 同名代币很多（包括以太坊上的 $PEEPA），只认上述合约。<br>2. 小市值模因币可归零，流动性浅，不是投资建议。<br>3. 请自行研究（DYOR）。不构成投资、理财或购买建议。",
+                lblLinks: "可复制链接（微信打不开时，粘贴到 Safari / Chrome）：",
+                linksText: "合约：" + CA + "\nGeckoTerminal：" + LINKS.gecko + "\nSolscan：" + LINKS.solscan + "\nPump.fun：" + LINKS.pump + "\nX：" + LINKS.x + "\nTelegram：" + LINKS.tg,
+                btnCopyLinks: "复制",
+                risk: "<strong>风险提示</strong><br>1. 同名代币很多（包括以太坊上的 $PEEPA），只认上述合约。<br>2. 小市值模因币可归零，流动性浅，不是投资建议。<br>3. 请自行研究（DYOR）。微信里自称管理员的账号不代表官方。",
                 msgSuccess: "合约地址已复制。",
-                msgFail: "复制失败，请长按地址框手动复制。"
+                msgFail: "复制失败，请长按地址框手动复制。",
+                msgLinksOk: "链接已复制。",
+                msgLinksFail: "复制失败，请长按文本框手动复制。"
             }
         };
 
         let currentLang = "en";
+
+        function copyText(value, okKey, failKey) {
+            const fallback = function (ok) {
+                alert(translations[currentLang][ok ? okKey : failKey]);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(value).then(function () {
+                    fallback(true);
+                }).catch(function () {
+                    fallback(false);
+                });
+                return;
+            }
+            fallback(document.execCommand("copy"));
+        }
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -318,8 +390,13 @@
             document.getElementById("btn-gecko").textContent = t.btnGecko;
             document.getElementById("btn-solscan").textContent = t.btnSolscan;
             document.getElementById("btn-pump").textContent = t.btnPump;
+            document.getElementById("btn-x").textContent = t.btnX;
+            document.getElementById("btn-tg").textContent = t.btnTg;
             document.getElementById("lbl-ca").textContent = t.lblCa;
             document.getElementById("copy-btn-text").textContent = t.btnCopy;
+            document.getElementById("lbl-links").textContent = t.lblLinks;
+            document.getElementById("links-input").value = t.linksText;
+            document.getElementById("copy-links-btn").textContent = t.btnCopyLinks;
             document.getElementById("risk-content").innerHTML = t.risk;
         }
 
@@ -327,16 +404,14 @@
             const el = document.getElementById("ca-input");
             el.focus();
             el.select();
-            const done = document.execCommand("copy");
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(el.value).then(function () {
-                    alert(translations[currentLang].msgSuccess);
-                }).catch(function () {
-                    alert(done ? translations[currentLang].msgSuccess : translations[currentLang].msgFail);
-                });
-            } else {
-                alert(done ? translations[currentLang].msgSuccess : translations[currentLang].msgFail);
-            }
+            copyText(el.value, "msgSuccess", "msgFail");
+        }
+
+        function copyCommunityLinks() {
+            const el = document.getElementById("links-input");
+            el.focus();
+            el.select();
+            copyText(el.value, "msgLinksOk", "msgLinksFail");
         }
 
         setLanguage("en");
