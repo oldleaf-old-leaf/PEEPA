@@ -13,9 +13,7 @@
             --text-muted: #848e9c;
             --btn-hover: #00e692;
         }
-
         * { box-sizing: border-box; }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
             background-color: var(--bg-color);
@@ -24,10 +22,8 @@
             padding: 15px;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
             min-height: 100vh;
         }
-
         .dashboard {
             background-color: var(--card-bg);
             border-radius: 20px;
@@ -39,14 +35,7 @@
             text-align: center;
             margin: 20px 0;
         }
-
-        .lang-bar {
-            display: flex;
-            justify-content: flex-end;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-
+        .lang-bar { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 15px; }
         .lang-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -57,42 +46,25 @@
             font-size: 0.8rem;
             font-weight: 600;
         }
-
         .lang-btn.active {
             background-color: var(--accent-green);
             color: #0b0e11;
             border-color: var(--accent-green);
         }
-
         .token-logo-outer {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
+            width: 110px; height: 110px; border-radius: 50%;
             background: linear-gradient(135deg, var(--accent-green), #00bcff);
             margin: 0 auto 20px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             box-shadow: 0 0 20px rgba(0, 255, 163, 0.3);
         }
-
         .token-logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-            background-color: #1a222d;
+            width: 100px; height: 100px; border-radius: 50%;
+            object-fit: cover; display: block; background: #1a222d;
         }
-
-        h1 {
-            font-size: 2.2rem;
-            margin: 0 0 8px 0;
-            letter-spacing: -0.5px;
-        }
-
+        h1 { font-size: 2.2rem; margin: 0 0 8px; letter-spacing: -0.5px; }
         .badge {
-            background-color: rgba(0, 255, 163, 0.1);
+            background: rgba(0, 255, 163, 0.1);
             color: var(--accent-green);
             padding: 5px 14px;
             border-radius: 20px;
@@ -102,9 +74,7 @@
             margin-bottom: 20px;
             border: 1px solid rgba(0, 255, 163, 0.15);
         }
-
-        .about-text,
-        .risk-text {
+        .about-text, .risk-text {
             color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.65;
@@ -113,118 +83,80 @@
             background: rgba(255, 255, 255, 0.02);
             padding: 15px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
         }
-
         .risk-text { font-size: 0.85rem; }
-
         .tokenomics-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-bottom: 16px;
         }
-
         .tokenomics-item {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 12px;
             border-radius: 10px;
-            text-align: center;
         }
-
         .stat-label {
             font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
             margin-bottom: 4px;
-            letter-spacing: 0.5px;
         }
+        .stat-value { font-size: 0.95rem; font-weight: bold; }
 
-        .stat-value {
-            font-size: 0.95rem;
-            font-weight: bold;
-            color: var(--text-main);
+        .block {
+            text-align: left;
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
-
-        .link-stack {
+        .block-title {
+            color: var(--accent-green);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .row {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 8px;
         }
-
-        .action-btn {
-            display: block;
-            background-color: var(--accent-green);
-            color: #0b0e11;
+        .row input {
+            flex: 1;
+            min-width: 0;
+            background: var(--bg-color);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 0.7rem;
+            padding: 10px;
+            outline: none;
+        }
+        .open-btn, .copy-btn {
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.78rem;
             text-decoration: none;
-            font-weight: bold;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 0.95rem;
+            white-space: nowrap;
+            padding: 10px 12px;
         }
-
-        .action-btn.secondary {
+        .open-btn {
             background: rgba(0, 255, 163, 0.12);
             color: var(--accent-green);
             border: 1px solid rgba(0, 255, 163, 0.25);
         }
-
-        .action-btn:hover {
-            background-color: var(--btn-hover);
-            color: #0b0e11;
-        }
-
-        .contract-section { margin-top: 4px; }
-
-        .contract-label {
-            text-align: left;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-bottom: 6px;
-        }
-
-        .contract-box {
-            display: flex;
-            background-color: var(--bg-color);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            overflow: hidden;
-            padding: 4px;
-            margin-top: 5px;
-            align-items: stretch;
-        }
-
-        .contract-box input,
-        .contract-box textarea {
-            flex: 1;
-            background: none;
-            border: none;
-            color: var(--text-main);
-            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-            font-size: 0.72rem;
-            padding: 10px;
-            outline: none;
-            min-width: 0;
-        }
-
-        .contract-box textarea {
-            resize: none;
-            line-height: 1.45;
-        }
-
         .copy-btn {
-            background-color: rgba(0, 255, 163, 0.1);
-            border: 1px solid rgba(0, 255, 163, 0.2);
-            color: var(--accent-green);
-            cursor: pointer;
-            font-weight: bold;
-            padding: 0 14px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            white-space: nowrap;
+            background: var(--accent-green);
+            color: #0b0e11;
+            border: none;
         }
+        .hint { color: var(--text-muted); font-size: 0.78rem; margin-bottom: 8px; }
     </style>
 </head>
 <body>
@@ -237,7 +169,6 @@
         <div class="token-logo-outer">
             <img class="token-logo" src="circlepng.png" alt="PEEPA">
         </div>
-
         <h1>PEEPA</h1>
         <div class="badge" id="network-badge">SOLANA NETWORK</div>
         <div class="about-text" id="about-content"></div>
@@ -260,32 +191,54 @@
                 <div class="stat-value">~1.2k–1.4k</div>
             </div>
         </div>
-
         <div class="about-text" id="checklist-content"></div>
 
-        <div class="link-stack">
-            <a class="action-btn" id="btn-gecko" href="https://www.geckoterminal.com/solana/pools/BoB3Dvi5eLGFr86BexBPNY2ZXwMNjWhx3FVCep3X2Vj6" target="_blank" rel="noopener">GeckoTerminal</a>
-            <a class="action-btn secondary" id="btn-solscan" href="https://solscan.io/token/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump" target="_blank" rel="noopener">Solscan</a>
-            <a class="action-btn secondary" id="btn-pump" href="https://pump.fun/coin/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump" target="_blank" rel="noopener">Pump.fun</a>
-            <a class="action-btn secondary" id="btn-x" href="https://x.com/i/communities/2021710777552674973" target="_blank" rel="noopener">X Community</a>
-            <a class="action-btn secondary" id="btn-tg" href="https://t.me/ThePeepacommunity" target="_blank" rel="noopener">Telegram</a>
-        </div>
-
-        <div class="contract-section">
-            <div class="contract-label" id="lbl-ca"></div>
-            <div class="contract-box">
-                <input type="text" id="ca-input" value="EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump" readonly>
-                <button type="button" class="copy-btn" id="copy-btn-text" onclick="copyTokenAddress()">Copy</button>
+        <!-- 1. CA -->
+        <section class="block">
+            <div class="block-title" id="sec-ca-title">1. CA</div>
+            <p class="hint" id="sec-ca-hint"></p>
+            <div class="row">
+                <input id="ca-input" type="text" value="EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump" readonly>
+                <button type="button" class="copy-btn" id="copy-ca" onclick="copyFrom('ca-input')">Copy</button>
             </div>
-        </div>
+        </section>
 
-        <div class="contract-section" style="margin-top: 18px;">
-            <div class="contract-label" id="lbl-links"></div>
-            <div class="contract-box">
-                <textarea id="links-input" readonly rows="7"></textarea>
-                <button type="button" class="copy-btn" id="copy-links-btn" onclick="copyCommunityLinks()">Copy</button>
+        <!-- 2. Platforms -->
+        <section class="block">
+            <div class="block-title" id="sec-plat-title">2. Platforms</div>
+            <p class="hint" id="sec-plat-hint"></p>
+            <div class="row">
+                <input id="link-gecko" type="text" readonly>
+                <a class="open-btn" id="open-gecko" href="#" target="_blank" rel="noopener">Open</a>
+                <button type="button" class="copy-btn" id="copy-gecko" onclick="copyFrom('link-gecko')">Copy</button>
             </div>
-        </div>
+            <div class="row">
+                <input id="link-solscan" type="text" readonly>
+                <a class="open-btn" id="open-solscan" href="#" target="_blank" rel="noopener">Open</a>
+                <button type="button" class="copy-btn" id="copy-solscan" onclick="copyFrom('link-solscan')">Copy</button>
+            </div>
+            <div class="row">
+                <input id="link-pump" type="text" readonly>
+                <a class="open-btn" id="open-pump" href="#" target="_blank" rel="noopener">Open</a>
+                <button type="button" class="copy-btn" id="copy-pump" onclick="copyFrom('link-pump')">Copy</button>
+            </div>
+        </section>
+
+        <!-- 3. Community -->
+        <section class="block">
+            <div class="block-title" id="sec-com-title">3. Community</div>
+            <p class="hint" id="sec-com-hint"></p>
+            <div class="row">
+                <input id="link-x" type="text" readonly>
+                <a class="open-btn" id="open-x" href="#" target="_blank" rel="noopener">Open</a>
+                <button type="button" class="copy-btn" id="copy-x" onclick="copyFrom('link-x')">Copy</button>
+            </div>
+            <div class="row">
+                <input id="link-tg" type="text" readonly>
+                <a class="open-btn" id="open-tg" href="#" target="_blank" rel="noopener">Open</a>
+                <button type="button" class="copy-btn" id="copy-tg" onclick="copyFrom('link-tg')">Copy</button>
+            </div>
+        </section>
 
         <div class="risk-text" id="risk-content" style="margin-top: 18px;"></div>
     </div>
@@ -294,8 +247,8 @@
         const CA = "EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump";
         const LINKS = {
             gecko: "https://www.geckoterminal.com/solana/pools/BoB3Dvi5eLGFr86BexBPNY2ZXwMNjWhx3FVCep3X2Vj6",
-            solscan: "https://solscan.io/token/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump",
-            pump: "https://pump.fun/coin/EamB9vqC1b4aoyPR6t3hn6CWf48yny84xzCuFJMbpump",
+            solscan: "https://solscan.io/token/" + CA,
+            pump: "https://pump.fun/coin/" + CA,
             x: "https://x.com/i/communities/2021710777552674973",
             tg: "https://t.me/ThePeepacommunity"
         };
@@ -304,73 +257,40 @@
             en: {
                 network: "SOLANA NETWORK",
                 about: "<strong>$PEEPA — briefing (not a recommendation)</strong><br><br>Name: Peepa (The wife of Pepe The Frog)<br>Chain: Solana<br><br>Public pages describe it as a meme based on a ~2017–2018 Reddit “Pepe’s wife” image by GarrisonFjord, with creator fees said to go to that artist. Confirm on-chain yourself.",
-                lblType: "Type",
-                valType: "Pump.fun graduate",
-                lblSupply: "Supply",
-                lblVenue: "Main venue",
-                valVenue: "PumpSwap",
-                lblHolders: "Holders",
-                checklist: "<strong>Public checklist</strong> (numbers change — check explorers):<br>• ~1B supply<br>• Graduated from Pump.fun; trades mainly on PumpSwap<br>• Pages report mint/freeze disabled and LP burned/locked — re-check<br>• Small cap / thin liquidity — high risk<br><br>If a link fails inside WeChat, copy it and open in Safari / Chrome.",
-                btnGecko: "View chart on GeckoTerminal",
-                btnSolscan: "Open Solscan",
-                btnPump: "Open Pump.fun",
-                btnX: "X community (may need VPN in China)",
-                btnTg: "Telegram: ThePeepacommunity",
-                lblCa: "Token mint address (CA) — verify this exact address:",
-                btnCopy: "Copy",
-                lblLinks: "Copy these links (paste into Safari / Chrome if WeChat blocks them):",
-                linksText: "CA: " + CA + "\nGeckoTerminal: " + LINKS.gecko + "\nSolscan: " + LINKS.solscan + "\nPump.fun: " + LINKS.pump + "\nX: " + LINKS.x + "\nTelegram: " + LINKS.tg,
-                btnCopyLinks: "Copy",
+                lblType: "Type", valType: "Pump.fun graduate",
+                lblSupply: "Supply", lblVenue: "Main venue", valVenue: "PumpSwap", lblHolders: "Holders",
+                checklist: "<strong>Public checklist</strong> (numbers change — check explorers):<br>• ~1B supply<br>• Graduated from Pump.fun; trades mainly on PumpSwap<br>• Pages report mint/freeze disabled and LP burned/locked — re-check<br>• Small cap / thin liquidity — high risk<br><br>If a link fails inside WeChat, use Copy and paste into Safari / Chrome.",
+                secCa: "1. Contract address (CA)",
+                secCaHint: "Verify this exact mint. Long-press Copy, then paste into WeChat.",
+                secPlat: "2. Platforms",
+                secPlatHint: "Chart and explorers. Open if it works; otherwise Copy.",
+                secCom: "3. Community",
+                secComHint: "X often needs a VPN in mainland China. Telegram may also be blocked.",
+                open: "Open", copy: "Copy",
                 risk: "<strong>Risks</strong><br>1. Many clone tickers exist (including an Ethereum $PEEPA). Use only this contract.<br>2. Small-cap meme coins can go to zero. This is not financial advice.<br>3. DYOR. Random WeChat “admins” are not official.",
-                msgSuccess: "Contract address copied.",
-                msgFail: "Copy failed. Long-press the address to copy.",
-                msgLinksOk: "Links copied.",
-                msgLinksFail: "Copy failed. Long-press the box to copy."
+                copied: "Copied.",
+                copyFail: "Copy failed. Long-press the text to copy."
             },
             zh: {
                 network: "SOLANA 网络",
                 about: "<strong>【项目简介 | $PEEPA】</strong><br><br>名称：Peepa（The wife of Pepe The Frog）<br>类型：Solana 模因代币（Pump.fun 毕业盘）<br>网络：Solana<br><br>社区叙事来自约 2017–2018 年 Reddit 上 “Pepe 的妻子” 模因（作者 GarrisonFjord）。项目方宣传交易手续费流向原作者。以上为公开页面说法，请自行验证。",
-                lblType: "类型",
-                valType: "Pump.fun 毕业盘",
-                lblSupply: "供应",
-                lblVenue: "主要交易",
-                valVenue: "PumpSwap",
-                lblHolders: "持有人",
-                checklist: "<strong>公开可查信息</strong>（会变动，以链上为准）：<br>• 供应约 10 亿枚<br>• 已从 Pump.fun 毕业，主要在 PumpSwap 交易<br>• 页面显示 Mint / Freeze 已关闭，LP 已销毁或锁定（请复核）<br>• 市值与流动性为小市值级别，波动极大<br><br>微信内链接可能打不开，请长按复制后用系统浏览器打开。",
-                btnGecko: "在 GeckoTerminal 查看行情",
-                btnSolscan: "打开 Solscan",
-                btnPump: "打开 Pump.fun",
-                btnX: "X 社区（国内需 VPN）",
-                btnTg: "Telegram 群 ThePeepacommunity",
-                lblCa: "智能合约地址（请自行核对，谨防假盘）：",
-                btnCopy: "复制",
-                lblLinks: "可复制链接（微信打不开时，粘贴到 Safari / Chrome）：",
-                linksText: "合约：" + CA + "\nGeckoTerminal：" + LINKS.gecko + "\nSolscan：" + LINKS.solscan + "\nPump.fun：" + LINKS.pump + "\nX：" + LINKS.x + "\nTelegram：" + LINKS.tg,
-                btnCopyLinks: "复制",
+                lblType: "类型", valType: "Pump.fun 毕业盘",
+                lblSupply: "供应", lblVenue: "主要交易", valVenue: "PumpSwap", lblHolders: "持有人",
+                checklist: "<strong>公开可查信息</strong>（会变动，以链上为准）：<br>• 供应约 10 亿枚<br>• 已从 Pump.fun 毕业，主要在 PumpSwap 交易<br>• 页面显示 Mint / Freeze 已关闭，LP 已销毁或锁定（请复核）<br>• 市值与流动性为小市值级别，波动极大<br><br>微信打不开链接时，点「复制」再粘贴到系统浏览器。",
+                secCa: "1. 合约地址（CA）",
+                secCaHint: "只认这一条。点复制后可直接发到微信。",
+                secPlat: "2. 平台链接",
+                secPlatHint: "行情与浏览器。能打开就点打开，不能就复制。",
+                secCom: "3. 社群",
+                secComHint: "国内打开 X 通常需要 VPN。Telegram 也可能被拦截。",
+                open: "打开", copy: "复制",
                 risk: "<strong>风险提示</strong><br>1. 同名代币很多（包括以太坊上的 $PEEPA），只认上述合约。<br>2. 小市值模因币可归零，流动性浅，不是投资建议。<br>3. 请自行研究（DYOR）。微信里自称管理员的账号不代表官方。",
-                msgSuccess: "合约地址已复制。",
-                msgFail: "复制失败，请长按地址框手动复制。",
-                msgLinksOk: "链接已复制。",
-                msgLinksFail: "复制失败，请长按文本框手动复制。"
+                copied: "已复制。",
+                copyFail: "复制失败，请长按文本手动复制。"
             }
         };
 
         let currentLang = "en";
-
-        function copyText(value, okKey, failKey) {
-            const fallback = function (ok) {
-                alert(translations[currentLang][ok ? okKey : failKey]);
-            };
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(value).then(function () {
-                    fallback(true);
-                }).catch(function () {
-                    fallback(false);
-                });
-                return;
-            }
-            fallback(document.execCommand("copy"));
-        }
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -387,33 +307,53 @@
             document.getElementById("val-venue").textContent = t.valVenue;
             document.getElementById("lbl-holders").textContent = t.lblHolders;
             document.getElementById("checklist-content").innerHTML = t.checklist;
-            document.getElementById("btn-gecko").textContent = t.btnGecko;
-            document.getElementById("btn-solscan").textContent = t.btnSolscan;
-            document.getElementById("btn-pump").textContent = t.btnPump;
-            document.getElementById("btn-x").textContent = t.btnX;
-            document.getElementById("btn-tg").textContent = t.btnTg;
-            document.getElementById("lbl-ca").textContent = t.lblCa;
-            document.getElementById("copy-btn-text").textContent = t.btnCopy;
-            document.getElementById("lbl-links").textContent = t.lblLinks;
-            document.getElementById("links-input").value = t.linksText;
-            document.getElementById("copy-links-btn").textContent = t.btnCopyLinks;
+            document.getElementById("sec-ca-title").textContent = t.secCa;
+            document.getElementById("sec-ca-hint").textContent = t.secCaHint;
+            document.getElementById("sec-plat-title").textContent = t.secPlat;
+            document.getElementById("sec-plat-hint").textContent = t.secPlatHint;
+            document.getElementById("sec-com-title").textContent = t.secCom;
+            document.getElementById("sec-com-hint").textContent = t.secComHint;
             document.getElementById("risk-content").innerHTML = t.risk;
+
+            ["copy-ca", "copy-gecko", "copy-solscan", "copy-pump", "copy-x", "copy-tg"].forEach(function (id) {
+                document.getElementById(id).textContent = t.copy;
+            });
+            ["open-gecko", "open-solscan", "open-pump", "open-x", "open-tg"].forEach(function (id) {
+                document.getElementById(id).textContent = t.open;
+            });
         }
 
-        function copyTokenAddress() {
-            const el = document.getElementById("ca-input");
+        function fillLinks() {
+            document.getElementById("ca-input").value = CA;
+            document.getElementById("link-gecko").value = LINKS.gecko;
+            document.getElementById("link-solscan").value = LINKS.solscan;
+            document.getElementById("link-pump").value = LINKS.pump;
+            document.getElementById("link-x").value = LINKS.x;
+            document.getElementById("link-tg").value = LINKS.tg;
+            document.getElementById("open-gecko").href = LINKS.gecko;
+            document.getElementById("open-solscan").href = LINKS.solscan;
+            document.getElementById("open-pump").href = LINKS.pump;
+            document.getElementById("open-x").href = LINKS.x;
+            document.getElementById("open-tg").href = LINKS.tg;
+        }
+
+        function copyFrom(id) {
+            const el = document.getElementById(id);
             el.focus();
             el.select();
-            copyText(el.value, "msgSuccess", "msgFail");
+            const value = el.value;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(value).then(function () {
+                    alert(translations[currentLang].copied);
+                }).catch(function () {
+                    alert(document.execCommand("copy") ? translations[currentLang].copied : translations[currentLang].copyFail);
+                });
+            } else {
+                alert(document.execCommand("copy") ? translations[currentLang].copied : translations[currentLang].copyFail);
+            }
         }
 
-        function copyCommunityLinks() {
-            const el = document.getElementById("links-input");
-            el.focus();
-            el.select();
-            copyText(el.value, "msgLinksOk", "msgLinksFail");
-        }
-
+        fillLinks();
         setLanguage("en");
     </script>
 </body>
